@@ -1,20 +1,10 @@
 import streamlit as st
 import requests
 
-API_URL = "http://127.0.0.1:8000"
+API_URL = "http://127.0.0.1:8000"  # Đảm bảo backend đang chạy tại URL này
 
 st.set_page_config(page_title="Class Manager", layout="wide")
 st.title("Class Manager System")
-
-# Khởi tạo session_state để lưu dữ liệu
-if "students" not in st.session_state:
-    st.session_state.students = []
-
-if "teachers" not in st.session_state:
-    st.session_state.teachers = []
-
-if "classes" not in st.session_state:
-    st.session_state.classes = []
 
 menu = ["Students", "Teachers", "Classes"]
 choice = st.sidebar.selectbox("Menu", menu)
@@ -24,14 +14,13 @@ if choice == "Students":
     st.subheader("Students")
 
     if st.button("Refresh Students"):
-        res = requests.get(f"{API_URL}/students/")
-        if res.ok:
-            st.session_state.students = res.json()
-        else:
-            st.error("Failed to fetch students")
-
-    if st.session_state.students:
-        st.table(st.session_state.students)
+        try:
+            res = requests.get(f"{API_URL}/students/")
+            res.raise_for_status()
+            students = res.json()
+            st.table(students)
+        except requests.exceptions.RequestException as e:
+            st.error(f"Failed to fetch students: {e}")
 
     with st.form("Add Student"):
         st.write("Add new student")
@@ -42,26 +31,25 @@ if choice == "Students":
         submitted = st.form_submit_button("Add Student")
         if submitted:
             student = {"id": student_id, "name": name, "grade": grade, "email": email}
-            res = requests.post(f"{API_URL}/students/", json=student)
-            if res.ok:
+            try:
+                res = requests.post(f"{API_URL}/students/", json=student)
+                res.raise_for_status()
                 st.success("Student added!")
-                st.session_state.students.append(student)
-            else:
-                st.error("Failed to add student")
+            except requests.exceptions.RequestException as e:
+                st.error(f"Failed to add student: {e}")
 
 # ------------------- TEACHERS -------------------
 elif choice == "Teachers":
     st.subheader("Teachers")
 
     if st.button("Refresh Teachers"):
-        res = requests.get(f"{API_URL}/teachers/")
-        if res.ok:
-            st.session_state.teachers = res.json()
-        else:
-            st.error("Failed to fetch teachers")
-
-    if st.session_state.teachers:
-        st.table(st.session_state.teachers)
+        try:
+            res = requests.get(f"{API_URL}/teachers/")
+            res.raise_for_status()
+            teachers = res.json()
+            st.table(teachers)
+        except requests.exceptions.RequestException as e:
+            st.error(f"Failed to fetch teachers: {e}")
 
     with st.form("Add Teacher"):
         st.write("Add new teacher")
@@ -72,26 +60,25 @@ elif choice == "Teachers":
         submitted = st.form_submit_button("Add Teacher")
         if submitted:
             teacher = {"id": teacher_id, "name": name, "subject": subject, "email": email}
-            res = requests.post(f"{API_URL}/teachers/", json=teacher)
-            if res.ok:
+            try:
+                res = requests.post(f"{API_URL}/teachers/", json=teacher)
+                res.raise_for_status()
                 st.success("Teacher added!")
-                st.session_state.teachers.append(teacher)
-            else:
-                st.error("Failed to add teacher")
+            except requests.exceptions.RequestException as e:
+                st.error(f"Failed to add teacher: {e}")
 
 # ------------------- CLASSES -------------------
 elif choice == "Classes":
     st.subheader("Classes")
 
     if st.button("Refresh Classes"):
-        res = requests.get(f"{API_URL}/classes/")
-        if res.ok:
-            st.session_state.classes = res.json()
-        else:
-            st.error("Failed to fetch classes")
-
-    if st.session_state.classes:
-        st.table(st.session_state.classes)
+        try:
+            res = requests.get(f"{API_URL}/classes/")
+            res.raise_for_status()
+            classes = res.json()
+            st.table(classes)
+        except requests.exceptions.RequestException as e:
+            st.error(f"Failed to fetch classes: {e}")
 
     # ----------------- Add Class -----------------
     with st.form("Add Class"):
@@ -101,12 +88,12 @@ elif choice == "Classes":
         submitted = st.form_submit_button("Add Class")
         if submitted:
             cls = {"id": class_id, "name": class_name, "students": [], "teacher": None}
-            res = requests.post(f"{API_URL}/classes/", json=cls)
-            if res.ok:
+            try:
+                res = requests.post(f"{API_URL}/classes/", json=cls)
+                res.raise_for_status()
                 st.success("Class added!")
-                st.session_state.classes.append(cls)
-            else:
-                st.error("Failed to add class")
+            except requests.exceptions.RequestException as e:
+                st.error(f"Failed to add class: {e}")
 
     st.markdown("---")
     st.subheader("Manage Class")
@@ -127,16 +114,12 @@ elif choice == "Classes":
                 "grade": student_grade,
                 "email": student_email
             }
-            res = requests.post(f"{API_URL}/classes/{class_id}/add_student", json=student)
-            if res.ok:
+            try:
+                res = requests.post(f"{API_URL}/classes/{class_id}/add_student", json=student)
+                res.raise_for_status()
                 st.success("Student added to class!")
-                # Cập nhật session_state.classes
-                for cls in st.session_state.classes:
-                    if cls["id"] == class_id:
-                        cls["students"].append(student)
-                        break
-            else:
-                st.error("Failed to add student to class")
+            except requests.exceptions.RequestException as e:
+                st.error(f"Failed to add student to class: {e}")
 
     # ----------------- Assign Teacher to Class -----------------
     elif action == "Assign Teacher":
@@ -151,13 +134,9 @@ elif choice == "Classes":
                 "subject": teacher_subject,
                 "email": teacher_email
             }
-            res = requests.post(f"{API_URL}/classes/{class_id}/assign_teacher", json=teacher)
-            if res.ok:
+            try:
+                res = requests.post(f"{API_URL}/classes/{class_id}/assign_teacher", json=teacher)
+                res.raise_for_status()
                 st.success("Teacher assigned to class!")
-                # Cập nhật session_state.classes
-                for cls in st.session_state.classes:
-                    if cls["id"] == class_id:
-                        cls["teacher"] = teacher
-                        break
-            else:
-                st.error("Failed to assign teacher")
+            except requests.exceptions.RequestException as e:
+                st.error(f"Failed to assign teacher: {e}")
