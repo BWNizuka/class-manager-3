@@ -16,7 +16,7 @@ from backend.logic import manager, Student, Teacher, Course, db
 # Streamlit UI
 # -----------------------------
 st.set_page_config(page_title="Class Manager", layout="wide")
-st.title("📚 Class Manager — OOP + MongoDB + Streamlit")
+st.title("Class Manager")
 
 if db is None:
     st.warning("❌ Không kết nối được tới MongoDB. Kiểm tra file .env và chuỗi MONGO_URI.")
@@ -38,7 +38,7 @@ if menu == "Dashboard":
 
 # Students
 elif menu == "Students":
-    st.subheader("👩‍🎓 Students CRUD")
+    st.subheader("Students CRUD")
     with st.form("create_student"):
         sid = st.text_input("ID")
         name = st.text_input("Name")
@@ -54,7 +54,7 @@ elif menu == "Students":
 
 # Teachers
 elif menu == "Teachers":
-    st.subheader("👨‍🏫 Teachers CRUD")
+    st.subheader("Teachers CRUD")
     with st.form("create_teacher"):
         tid = st.text_input("ID")
         name = st.text_input("Name")
@@ -70,7 +70,7 @@ elif menu == "Teachers":
 
 # Courses
 elif menu == "Courses":
-    st.subheader("📘 Courses CRUD")
+    st.subheader("Courses CRUD")
     with st.form("create_course"):
         code = st.text_input("Course Code")
         title = st.text_input("Title")
@@ -85,7 +85,7 @@ elif menu == "Courses":
 
 # Assign Teacher
 elif menu == "Assign Teacher":
-    st.subheader("👨‍🏫➡️📘 Assign Teacher to Course")
+    st.subheader("Assign Teacher to Course")
     teachers = manager.read_teachers()
     courses = manager.read_courses()
     if teachers and courses:
@@ -102,7 +102,7 @@ elif menu == "Assign Teacher":
 
 # Enroll Student
 elif menu == "Enroll Student":
-    st.subheader("👩‍🎓➡️📘 Enroll Student in Course")
+    st.subheader("Enroll Student in Course")
     students = manager.read_students()
     courses = manager.read_courses()
     if students and courses:
