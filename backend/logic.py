@@ -17,7 +17,7 @@ def get_db():
     try:
         client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=8000)
         client.admin.command("ping")  # test kết nối
-        print("✅ MongoDB connected")
+        print("MongoDB connected")
         return client[DB_NAME]
     except Exception as e:
         print(f"❌ MongoDB connection failed: {e}")
