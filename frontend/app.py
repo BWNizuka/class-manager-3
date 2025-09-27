@@ -1,17 +1,12 @@
 # frontend/app.py
 import streamlit as st
 import pandas as pd
-from backend.logic import manager, Student, Teacher, Course, db
 import sys
 import os
+from backend.logic import manager, Student, Teacher, Course, db 
 
 # Thêm thư mục cha (classmanager) vào sys.path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-import streamlit as st
-import pandas as pd
-from backend.logic import manager, Student, Teacher, Course, db
-
 
 # -----------------------------
 # Streamlit UI
