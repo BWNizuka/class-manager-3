@@ -16,11 +16,8 @@ st.set_page_config(page_title="Class Manager", layout="wide")
 st.title("Class Manager")
 
 if db is None:
-    st.warning("❌ Không kết nối được tới MongoDB. Kiểm tra file .env và chuỗi MONGO_URI.")
+    st.warning("Không kết nối được tới MongoDB. Kiểm tra file .env và chuỗi MONGO_URI.")
     st.stop()
-
-# Debug hiển thị trong sidebar
-st.sidebar.caption(f"🔌 Using DB: {db.name}")
 
 menu = st.sidebar.selectbox("Menu", [
     "Dashboard", "Students", "Teachers", "Courses", "Assign Teacher", "Enroll Student"
@@ -30,7 +27,7 @@ menu = st.sidebar.selectbox("Menu", [
 # Dashboard
 # -----------------------------
 if menu == "Dashboard":
-    st.subheader("📊 Dashboard")
+    st.subheader("Dashboard")
     st.metric("Students", len(manager.read_students()))
     st.metric("Teachers", len(manager.read_teachers()))
     st.metric("Courses", len(manager.read_courses()))
@@ -43,7 +40,7 @@ elif menu == "Students":
 
     # Create
     with st.form("create_student"):
-        st.write("➕ Add Student")
+        st.write("Add Student")
         sid = st.text_input("ID")
         name = st.text_input("Name")
         email = st.text_input("Email")
@@ -54,7 +51,7 @@ elif menu == "Students":
 
     # Update
     with st.form("update_student"):
-        st.write("✏️ Update Student")
+        st.write("Update Student")
         sid = st.text_input("Student ID to update")
         new_name = st.text_input("New Name")
         new_email = st.text_input("New Email")
@@ -85,7 +82,7 @@ elif menu == "Teachers":
 
     # Create
     with st.form("create_teacher"):
-        st.write("➕ Add Teacher")
+        st.write("Add Teacher")
         tid = st.text_input("ID")
         name = st.text_input("Name")
         email = st.text_input("Email")
@@ -96,7 +93,7 @@ elif menu == "Teachers":
 
     # Update
     with st.form("update_teacher"):
-        st.write("✏️ Update Teacher")
+        st.write("Update Teacher")
         tid = st.text_input("Teacher ID to update")
         new_name = st.text_input("New Name")
         new_email = st.text_input("New Email")
@@ -111,7 +108,7 @@ elif menu == "Teachers":
 
     # Delete
     with st.form("delete_teacher"):
-        st.write("🗑 Delete Teacher")
+        st.write("Delete Teacher")
         tid = st.text_input("Teacher ID to delete", key="delete_teacher")
         if st.form_submit_button("Delete"):
             ok, msg = manager.delete_teacher(tid)
@@ -127,7 +124,7 @@ elif menu == "Courses":
 
     # Create
     with st.form("create_course"):
-        st.write("➕ Add Course")
+        st.write("Add Course")
         code = st.text_input("Course Code")
         title = st.text_input("Title")
         schedule = st.text_input("Schedule")
@@ -137,7 +134,7 @@ elif menu == "Courses":
 
     # Update
     with st.form("update_course"):
-        st.write("✏️ Update Course")
+        st.write("Update Course")
         code = st.text_input("Course Code to update")
         new_title = st.text_input("New Title")
         new_schedule = st.text_input("New Schedule")
