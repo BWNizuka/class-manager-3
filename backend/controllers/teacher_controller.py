@@ -2,7 +2,6 @@ from fastapi import APIRouter, HTTPException
 from backend.models.teacher import Teacher
 
 router = APIRouter()
-
 teachers_db = []
 
 @router.get("/")
