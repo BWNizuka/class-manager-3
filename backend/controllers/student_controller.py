@@ -2,8 +2,6 @@ from fastapi import APIRouter, HTTPException
 from backend.models.student import Student
 
 router = APIRouter()
-
-# Temporary in-memory storage
 students_db = []
 
 @router.get("/")
