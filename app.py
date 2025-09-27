@@ -1,7 +1,20 @@
 import streamlit as st
 import requests
+import sys
+import os
 
 API_URL = "http://localhost:8000"  # Địa chỉ backend FastAPI
+
+# __file__ = frontend/app.py
+# BASE_DIR = thư mục gốc classmanager
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+if BASE_DIR not in sys.path:
+    sys.path.insert(0, BASE_DIR)  # ưu tiên tìm module ở thư mục gốc
+
+import streamlit as st
+import pandas as pd
+from backend.logic import manager, Student, Teacher, Course, db
 
 st.title("Class Manager")
 
