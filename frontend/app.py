@@ -36,7 +36,7 @@ if menu == "Dashboard":
 # Students CRUD
 # -----------------------------
 elif menu == "Students":
-    st.subheader("Students CRUD")
+    st.subheader("Students")
 
     # Create
     with st.form("create_student"):
@@ -78,7 +78,7 @@ elif menu == "Students":
 # Teachers CRUD
 # -----------------------------
 elif menu == "Teachers":
-    st.subheader("Teachers CRUD")
+    st.subheader("Teachers")
 
     # Create
     with st.form("create_teacher"):
@@ -120,7 +120,7 @@ elif menu == "Teachers":
 # Courses CRUD
 # -----------------------------
 elif menu == "Courses":
-    st.subheader("Courses CRUD")
+    st.subheader("Courses")
 
     # Create
     with st.form("create_course"):
