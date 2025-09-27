@@ -19,7 +19,7 @@ from backend.logic import manager, Student, Teacher, Course, db
 st.title("Class Manager")
 
 # -----------------------------
-# 1️⃣ Quản lý lớp học (Class)
+# Quản lý lớp học (Class)
 # -----------------------------
 st.subheader("Create Class")
 class_name = st.text_input("Class Name", key="class_name_input")
@@ -36,7 +36,7 @@ if st.button("Create Class", key="btn_create_class"):
     st.success(response.json()["message"])
 
 # -----------------------------
-# 2️⃣ Quản lý giáo viên (Teacher)
+# Quản lý giáo viên (Teacher)
 # -----------------------------
 st.subheader("Add Teacher")
 teacher_name = st.text_input("Teacher Name", key="teacher_name_input")
@@ -52,7 +52,7 @@ if st.button("Add Teacher", key="btn_add_teacher"):
     st.success(response.json()["message"])
 
 # -----------------------------
-# 3️⃣ Quản lý học sinh (Student)
+# Quản lý học sinh (Student)
 # -----------------------------
 st.subheader("Add Student")
 student_name = st.text_input("Student Name", key="student_name_input")
@@ -67,7 +67,7 @@ if st.button("Add Student", key="btn_add_student"):
     st.success(response.json()["message"])
 
 # -----------------------------
-# 4️⃣ Quản lý môn học (Subject)
+# Quản lý môn học (Subject)
 # -----------------------------
 st.subheader("Add Subject")
 subject_name = st.text_input("Subject Name", key="subject_name_input")
@@ -82,7 +82,7 @@ if st.button("Add Subject", key="btn_add_subject"):
     st.success(response.json()["message"])
 
 # -----------------------------
-# 5️⃣ Quản lý thời khóa biểu (Schedule)
+# Quản lý thời khóa biểu (Schedule)
 # -----------------------------
 st.subheader("Add Schedule")
 class_id_schedule = st.number_input("Class ID (Schedule)", min_value=1, key="class_id_schedule_input")
@@ -101,7 +101,7 @@ if st.button("Add Schedule", key="btn_add_schedule"):
     st.success(response.json()["message"])
 
 # -----------------------------
-# 6️⃣ Hiển thị dữ liệu
+# Hiển thị dữ liệu
 # -----------------------------
 st.subheader("View Data")
 
