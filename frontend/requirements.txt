@@ -3,3 +3,5 @@ pymongo[srv]
 pandas
 dnspython
 python-dotenv
+streamlit
+requests
