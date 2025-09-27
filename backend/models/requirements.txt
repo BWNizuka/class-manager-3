@@ -1,5 +1,0 @@
-streamlit
-pymongo[srv]
-pandas
-dnspython
-python-dotenv
