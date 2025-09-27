@@ -60,3 +60,30 @@ elif choice == "Classes":
                 st.success("Class added!")
             else:
                 st.error("Failed to add class")
+                
+elif choice == "Teachers":
+    st.subheader("Teachers")
+    
+    # List teachers
+    if st.button("Refresh Teachers"):
+        response = requests.get(f"{API_URL}/teachers/")
+        if response.status_code == 200:
+            teachers = response.json()
+            st.write(teachers)
+        else:
+            st.error("Failed to fetch teachers")
+    
+    # Add teacher
+    with st.form("Add Teacher"):
+        st.write("Add new teacher")
+        teacher_id = st.number_input("ID", min_value=1, key="teacher_id")
+        name = st.text_input("Name", key="teacher_name")
+        subject = st.text_input("Subject", key="teacher_subject")
+        submitted = st.form_submit_button("Add Teacher")
+        if submitted:
+            teacher = {"id": teacher_id, "name": name, "subject": subject}
+            response = requests.post(f"{API_URL}/teachers/", json=teacher)
+            if response.status_code == 200:
+                st.success("Teacher added!")
+            else:
+                st.error("Failed to add teacher")
